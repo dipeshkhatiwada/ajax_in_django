@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+    <div class="container">
+        <div class="row" >
+            <div class="col-md-12 " style="border: 4px solid #fff; text-align: center;">
+                <div class="infinite-container">
+                    {% for number in numbers %}
+                      <div class="infinite-item bg bg-info"><h1>{{ number }}</h1></div>
+                    {% endfor %}
+                </div>
+            </div>
+        <br>
+        </div>
+
+
+        <div class="row" >
+            <div class="col-md-12 " style="border: 4px solid #fff; text-align: center;">
+                <div class="infinite-container">
+                    {% if numbers.has_next %}
+                      <div class="infinite-item bg bg-danger">
+                          <h1>
+                            <a class="infinite-more-link" href="?page={{ numbers.next_page_number }}">More</a>
+                          </h1>
+                      </div>
+                    {% endif %}
+                </div>
+            </div>
+        <br>
+        </div>
+    <div class="row loading" style="display: none;" >
+            <div class="col-md-12 " style="text-align: center;">
+                  <div class="loading bg bg-danger" style="display: none;">
+                      <h1>        Loading...      </h1>
+                  </div>
+            </div>
+        <br>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}
+
+{% block javascript %}
+{#    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>#}
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/infinite.min.js' %}"></script>
+    <script>
+    setTimeout(function() {
+            var infinite = new Waypoint.Infinite({
+              element: $('.infinite-container')[0],
+                onBeforePageLoad: function () {
+                  $('.loading').show();
+                },
+                onAfterPageLoad: function ($items) {
+                  $('.loading').hide();
+                }
+            });
+        }, 2000);
+
+    </script>
+{% endblock %}

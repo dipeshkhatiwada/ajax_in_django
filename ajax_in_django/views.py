@@ -29,3 +29,10 @@ def home(request):
     except EmptyPage:
         numbers = paginator.page(paginator.num_pages)
     return render(request,'index.html',{'numbers': numbers})
+
+#  class based view
+# class ArticlesView(ListView):
+#     model = Article
+#     paginate_by = 5
+#     context_object_name = 'articles'
+#     template_name = 'blog/articles.html'
